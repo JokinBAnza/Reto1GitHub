@@ -8,7 +8,7 @@ import repositorios.GestionUsuario;
 
 public class MenuUsuario {
 	public static Scanner sc=new Scanner(System.in);
-	
+
 	public static void mostrarMenuUsuario(Scanner sc) {
 		int opcion = 0;
 		while (opcion!=3) {

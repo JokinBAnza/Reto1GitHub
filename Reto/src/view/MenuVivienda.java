@@ -27,7 +27,6 @@ public class MenuVivienda {
 	                  Vivienda viv=agregarVivienda(sc);
 	                  GestionVivienda.insertarVivienda(viv);
 	                        break;
-	    
 	                case 2:
 	                	GestionVivienda.mostrarViviendasBD();
 	                    break;

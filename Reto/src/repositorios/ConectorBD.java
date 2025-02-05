@@ -18,6 +18,7 @@ public class ConectorBD {
             conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/MR_ROBOT","root","1DAW3_BBDD");
           
             System.out.println("Conexion establecida");
+            System.out.println();
           
         }catch(Exception e){
             System.out.println("Error en la conexion");

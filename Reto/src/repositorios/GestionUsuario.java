@@ -13,10 +13,14 @@ public class GestionUsuario {
 	
 	private final static Scanner sc= new Scanner (System.in);
 	
-	private static String dniUsuario; // Aquí guardas el DNI del usuario logueado
+	private static String dniUsuario; // Aquí guardas el DNI del usuario logueado.
 
     public static String getDniUsuario() {
-        return dniUsuario;  // Devuelves el DNI cuando se necesite
+        return dniUsuario;  // Devuelves el DNI cuando se necesite.
+    }
+    public static String nombre;
+    public static String getNombre() {
+    	return nombre;
     }
 	
 	public static void insertarUsuario(Usuario usuario) {
@@ -53,20 +57,40 @@ public class GestionUsuario {
 	        } else {
 	            String rol = rs.getString("Rol");
 	            dniUsuario = rs.getString("DNI");
+	            nombre= rs.getString("Nombre");
 	            if ("Administrador".equalsIgnoreCase(rol)) {
 	                System.out.println("Bienvenido Administrador.");
 	                MenuVivienda.mostrarMenuVivienda(sc);
 	            } else if ("Cliente".equalsIgnoreCase(rol)) {
-	                System.out.println("Bienvenido Cliente.");
+	                System.out.println("Bienvenido "+nombre+".");
 	                MenuOficina.menuOficina(sc);
 	            } else {
 	                System.out.println("Usuario o contraseña incorrectos.");
+	                System.out.println();
 	            }
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	        System.out.println("Error al realizar el login.");
 	    }
+	}
+	public static void mostrarUsuarios() {
+		String Select= "SELECT * FROM usuario";
+		try {
+			PreparedStatement statement=ConectorBD.conexion.prepareStatement(Select);
+			ResultSet rs=statement.executeQuery(Select);
+			
+			while(rs.next()) {
+				System.out.println("DNI: "+rs.getString("DNI")+", Nombre: "+rs.getString("Nombre")
+				+", Nombre Usuario: "+rs.getString("NomUs")+", Email: "+rs.getString("Email")+", Contraseña: "+rs.getString("Contraseña")
+						+", Rol: "+rs.getString("Rol"));
+			}			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			System.out.println("Error al mostrar los usuarios: "+Select);
+		}
+		
 	}
 
 }

@@ -1,5 +1,6 @@
 package repositorios;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +9,48 @@ import clases.Reserva;
 
 public class GestionReserva {
 	
+	public static void consultarFechaBD(int opcion,Date fechaEntrada, Date fechaSalida) {
+	    String Select = "SELECT v.CodVivienda, v.IdOficina, v.Ciudad, v.Direccion, v.Descripcion, v.NumHab, v.Precio_Dia, v.Tipo_Vivienda, v.Planta, v.Piscina "
+	            + "FROM vivienda v "
+	            + "LEFT JOIN reserva r ON v.CodVivienda = r.CodVivienda AND "
+	            + "( (r.FechaEntrada BETWEEN ? AND ?) OR "
+	            + "  (r.FechaSalida BETWEEN ? AND ?) OR "
+	            + "  (r.FechaEntrada < ? AND r.FechaSalida > ?) ) "
+	            + "WHERE r.CodVivienda IS NULL AND v.CodVivienda=?";  // Sólo selecciona viviendas que no tienen reservas que se superpongan
+
+	    try {
+	        PreparedStatement statement = ConectorBD.conexion.prepareStatement(Select);
+	        statement.setDate(1, fechaEntrada);
+	        statement.setDate(2, fechaSalida);
+	        statement.setDate(3, fechaEntrada);
+	        statement.setDate(4, fechaSalida);
+	        statement.setDate(5, fechaSalida);
+	        statement.setDate(6, fechaEntrada);
+	        statement.setInt(7, opcion);
+
+	        ResultSet rs = statement.executeQuery();
+
+	        boolean hayViviendasDisponibles = false;
+
+	        while (rs.next()) {
+	            hayViviendasDisponibles = true;
+	            System.out.println("Codigo Vivienda: " + rs.getInt("CodVivienda") + ", IdOficina: " + rs.getInt("IdOficina")
+	                    + ", Ciudad: " + rs.getString("Ciudad") + ", Direccion: " + rs.getString("Direccion")
+	                    + ", Numero Habitantes: " + rs.getInt("NumHab") + ", Descripción: " + rs.getString("Descripcion")
+	                    + ", Precio/dia: " + rs.getDouble("Precio_Dia") + ", Tipo Vivienda: " + rs.getString("Tipo_Vivienda")
+	                    + ", Planta: " + rs.getString("Planta") + ", Piscina: " + rs.getString("Piscina"));
+	        }
+
+	        if (!hayViviendasDisponibles) {
+	            System.out.println("No hay viviendas disponibles en este rango de fechas.");
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("Error al hacer la consulta: " + Select);
+	    }
+	}
+
 	public static void insertarReserva(Reserva reserva) {
         
         String insert = "INSERT INTO reserva (DniUsuario, CodVivienda, FechaEntrada, FechaSalida, NumHuespedes, TotalPagado) VALUES (?, ?, ?, ?, ?, ?)";
@@ -24,43 +67,41 @@ public class GestionReserva {
             
             int rowsInserted = statement.executeUpdate();
             
-            String updateVivienda = "UPDATE vivienda SET disponible = 'No' WHERE CodVivienda = ?";
-        
-            PreparedStatement statementUpdate = ConectorBD.conexion.prepareStatement(updateVivienda);
-            statementUpdate.setInt(1, reserva.getCodVivienda());
-
-            statementUpdate.executeUpdate();
-
-        
             if (rowsInserted > 0) {
-                System.out.println("¡Vivienda añadida con éxito!");
+                System.out.println("¡Reserva realizada con éxito!");
             }
         	}
             catch (SQLException e) {
     			e.printStackTrace();
-    			System.out.println("Error al hacer la consulta: "+insert);
+    			System.out.println("Error al hacer la reserva "+insert);
             }
     }
 	public static void mostrarReservas() {
-    	System.out.println("Lista de viviendas");
-           String Select = "SELECT * FROM mr_robot.reserva WHERE dniUsuario= ?";
-          
-        	try {
-				PreparedStatement statement=ConectorBD.conexion.prepareStatement(Select);
-				statement.setString(1, GestionUsuario.getDniUsuario());
-				ResultSet rs=statement.executeQuery();
-				
-				while(rs.next()) {
-					System.out.println("Codigo reserva: "+rs.getInt("CodReserva")+", DNI: "+rs.getString("DniUsuario")+", CodVivienda: "+rs.getInt("CodVivienda")+
-							", Fecha Entrada: "+rs.getString("FechaEntrada")+", Fecha Salida: "+rs.getString("FechaSalida")
-							+", Numero de Huespedes: "+rs.getInt("NumHuespedes")+", Total a pagar: "+rs.getDouble("TotalPagado"));
-				}			
-			} catch (SQLException e) {
-				
-				e.printStackTrace();
-				System.out.println("Error al hacer la consulta: "+Select);
-			}
-    }
+	    System.out.println("Lista de viviendas");
+	    String Select = "SELECT * FROM mr_robot.reserva WHERE dniUsuario= ?";
+
+	    try {
+	        PreparedStatement statement = ConectorBD.conexion.prepareStatement(Select);
+	        statement.setString(1, GestionUsuario.getDniUsuario());
+	        ResultSet rs = statement.executeQuery();
+
+	        if (!rs.next()) {
+	            System.out.println("¡No existe ninguna reserva!");
+	        } else {
+
+	            do {
+	                System.out.println("Codigo reserva: " + rs.getInt("CodReserva") + ", DNI: " + rs.getString("DniUsuario") +
+	                        ", CodVivienda: " + rs.getInt("CodVivienda") + ", Fecha Entrada: " + rs.getString("FechaEntrada") +
+	                        ", Fecha Salida: " + rs.getString("FechaSalida") + ", Numero de Huespedes: " + rs.getInt("NumHuespedes") +
+	                        ", Total a pagar: " + rs.getDouble("TotalPagado"));
+	            } while (rs.next());
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("Error al hacer la consulta: " + Select);
+	    }
+	}
+
 	public static double obtenerPrecioDiaVivienda(int codVivienda) {
 	    String query = "SELECT precio_Dia FROM vivienda WHERE CodVivienda = ?";
 	    double precioDia = 0.0;
@@ -104,5 +145,27 @@ public class GestionReserva {
 	
 				}
 	}
+	public static boolean esViviendaDeOficina(int codVivienda, int idOficina) {
+	    String query = "SELECT COUNT(*) FROM mr_robot.vivienda WHERE CodVivienda = ? AND IdOficina = ?";
+	    
+	    try {
+	        PreparedStatement statement = ConectorBD.conexion.prepareStatement(query);
+	        statement.setInt(1, codVivienda);
+	        statement.setInt(2, idOficina);
+	        
+	        ResultSet rs = statement.executeQuery();
+	        
+	        if (rs.next() && rs.getInt(1) > 0) {
+	            return true; // La vivienda pertenece a la oficina
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("Error al verificar la vivienda.");
+	    }
+	    
+	    return false; // La vivienda no pertenece a la oficina
+	}
+
 
 }

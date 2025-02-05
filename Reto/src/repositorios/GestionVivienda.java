@@ -38,7 +38,7 @@ public class GestionVivienda {
             }
                 catch (SQLException e) {
         			e.printStackTrace();
-        			System.out.println("Error al hacer la consulta: "+insert);
+        			System.out.println("Error al intentar insertar la vivienda: "+insert);
                 }
         		}
     public static void mostrarViviendasBD() {
@@ -52,14 +52,14 @@ public class GestionVivienda {
         				while(rs.next()) {
         					System.out.println("Codigo Vivienda: "+rs.getInt("CodVivienda")+", IdOficina: "+rs.getInt("IdOficina")
         					+", Disponible: "+rs.getString("Disponible")+", Ciudad: "+rs.getString("Ciudad")+", Direccion: "+rs.getString("Direccion")
-        							+", Numero Habitantes: "+rs.getInt("NumHab")+", Descripción: "+rs.getString("descripcion")
+        							+", Numero Habitaciones: "+rs.getInt("NumHab")+", Descripción: "+rs.getString("descripcion")
         							+", Precio/dia: "+rs.getDouble("Precio_Dia")+", Tipo Vivienda: "+rs.getString("Tipo_Vivienda")
         							+", Planta: "+rs.getString("Planta")+", Piscina: "+rs.getString("Piscina"));
         				}			
         			} catch (SQLException e) {
         				
         				e.printStackTrace();
-        				System.out.println("Error al hacer la consulta: "+Select);
+        				System.out.println("Error al mostrar las viviendas: "+Select);
         			}
             }
     public static void modificarViviendaBD(Vivienda vivi) {
@@ -78,12 +78,32 @@ public class GestionVivienda {
             if (filasAfectadas > 0) {
                 System.out.println("Vivienda actualizada exitosamente.");
             } else {
-                System.out.println("No se encontró una vivienda con el código proporcionado.");
+                System.out.println("Error. No se encontró ninguna vivienda con el código proporcionado.");
             }
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Error al hacer la consulta: " + updateQuery);
         }
+    }
+    public static void eliminarVivienda(int CodV) {
+    	String deleteQuery= "DELETE FROM vivienda WHERE CodVivienda = ?";
+    	
+    	try {
+    		PreparedStatement statement = ConectorBD.conexion.prepareStatement(deleteQuery);
+    		
+    		statement.setInt(1, CodV );
+    		 int rowsAffected = statement.executeUpdate(); 
+
+    	        if (rowsAffected > 0) {
+    	            System.out.println("¡Vivienda eliminada con éxito!");
+    	        } else {
+    	            System.out.println("No se encontró la vivienda para eliminar.");
+    	        }
+    	}catch(SQLException e) {
+    		e.printStackTrace();
+            System.out.println("Error al hacer la consulta: " + deleteQuery);
+    	}
+    			
     }
                     
 }

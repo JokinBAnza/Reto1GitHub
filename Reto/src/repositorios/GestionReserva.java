@@ -25,8 +25,8 @@ public class GestionReserva {
 	        statement.setDate(2, fechaSalida);
 	        statement.setDate(3, fechaEntrada);
 	        statement.setDate(4, fechaSalida);
-	        statement.setDate(5, fechaSalida);
-	        statement.setDate(6, fechaEntrada);
+	        statement.setDate(5, fechaEntrada);
+	        statement.setDate(6, fechaSalida);
 	        statement.setInt(7, opcion);
 
 	        ResultSet rs = statement.executeQuery();

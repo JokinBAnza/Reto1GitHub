@@ -67,7 +67,7 @@ public class MenuReservas {
 	        }
 	    }
 	private static Date convertirFecha(String fechaString) throws ParseException {
-	    SimpleDateFormat formatoEntrada = new SimpleDateFormat("YYYY/MM/DD");
+	    SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy/MM/dd");//Descubrimos que si cambias el año a mayusculas o el mes a minusculas da errores.
 	    formatoEntrada.setLenient(false);
 
 	    java.util.Date fechaUtil = formatoEntrada.parse(fechaString);

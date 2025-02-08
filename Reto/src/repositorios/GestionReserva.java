@@ -16,7 +16,7 @@ public class GestionReserva {
 	            + "( (r.FechaEntrada BETWEEN ? AND ?) OR "
 	            + "  (r.FechaSalida BETWEEN ? AND ?) OR "
 	            + "  (r.FechaEntrada < ? AND r.FechaSalida > ?) ) "
-	            + "WHERE r.CodVivienda IS NULL AND v.CodVivienda=?";  // Sólo selecciona viviendas que no tienen reservas que se superpongan
+	            + "WHERE r.CodVivienda IS NULL AND v.idOficina=?";  // Sólo selecciona viviendas que no tienen reservas que se superpongan
 	   
 	    boolean hayViviendasDisponibles = false;
 	    try {

@@ -11,9 +11,7 @@ public class Vivienda {
 	protected String descripcion;
 	protected double precioDia;
 	protected String tipo_Vivienda;
-	protected String planta;
-	protected String piscina;
-	
+
 	//Constructor vacío
 	public Vivienda() {
 		super();
@@ -21,7 +19,7 @@ public class Vivienda {
 
 	//Constructor con atributos
 	public Vivienda(int idOficina, String ciudad, String direccion, int numHab, String descripcion,
-			double precioDia, String tipo_Vivienda, String planta, String piscina) {
+			double precioDia, String tipo_Vivienda) {
 		super();
 		this.idOficina=idOficina;
 		this.ciudad = ciudad;	
@@ -30,8 +28,7 @@ public class Vivienda {
 		this.descripcion = descripcion;
 		this.precioDia = precioDia;
 		this.tipo_Vivienda=tipo_Vivienda;
-		this.planta=planta;
-		this.piscina=piscina;
+
 	}
 
 	//Getters y Setters
@@ -102,21 +99,4 @@ public class Vivienda {
 		this.tipo_Vivienda = tipo_Vivienda;
 	}
 
-	public String getPlanta() {
-		return planta;
-	}
-
-	public void setPlanta(String planta) {
-		this.planta = planta;
-	}
-	
-
-	public String isPiscina() {
-		return piscina;
-	}
-
-	public void setPiscina(String piscina) {
-		this.piscina = piscina;
-	}
-	
 }

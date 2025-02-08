@@ -83,13 +83,4 @@ public class Usuario {
 		this.rol = rol;
 	}
 	
-	//ToString
-	@Override
-	public String toString() {
-		return "Usuario [DNI: " + dni + ", Nombre: " + nombre + ", Apellido: " + apellido + ", NomUs: " + nomUs + ", Email: "
-				+ email + ", Contraseña: " + contraseña + "]";
-	}
-	
-	
-	
 }

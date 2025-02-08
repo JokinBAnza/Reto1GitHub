@@ -67,7 +67,7 @@ public class MenuReservas {
 	        }
 	    }
 	private static Date convertirFecha(String fechaString) throws ParseException {
-	    SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy/MM/dd");
+	    SimpleDateFormat formatoEntrada = new SimpleDateFormat("YYYY/MM/DD");
 	    formatoEntrada.setLenient(false);
 
 	    java.util.Date fechaUtil = formatoEntrada.parse(fechaString);
@@ -81,7 +81,7 @@ public class MenuReservas {
 
 	    while (fechaEd == null) {
 	        try {
-	            System.out.print("Fecha de Entrada (yyyy/MM/dd): ");
+	            System.out.print("Fecha de Entrada (YYYY/MM/DD): ");
 	            String fechaE = sc.nextLine();
 	            fechaEd = convertirFecha(fechaE);
 	            LocalDate fechaEntradaLocal = fechaEd.toLocalDate();
@@ -96,7 +96,7 @@ public class MenuReservas {
 
 	    while (fechaSd == null) {
 	        try {
-	            System.out.print("Fecha de Salida (yyyy/MM/dd): ");
+	            System.out.print("Fecha de Salida (YYYY/MM/DD): ");
 	            String fechaS = sc.nextLine();
 	            fechaSd = convertirFecha(fechaS);
 	    	    LocalDate fechaSalidaLocal = fechaSd.toLocalDate();

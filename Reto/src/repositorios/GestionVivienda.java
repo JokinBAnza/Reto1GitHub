@@ -4,14 +4,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+import clases.Piso;
+import clases.Villa;
 import clases.Vivienda;
 
 
 public class GestionVivienda {
 	
 	
-    public static void insertarVivienda(Vivienda vivienda) {
+    public static void insertarVivienda(Vivienda vivienda, Piso vivi, Villa viviend) {
         
             String insert = "INSERT INTO vivienda (idOficina, ciudad, direccion, descripcion, numhab, precio_dia, Tipo_Vivienda, planta, piscina) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
@@ -25,8 +26,8 @@ public class GestionVivienda {
                 statement.setInt(5,vivienda.getNumHab() );
                 statement.setDouble(6,vivienda.getPrecioDia() );
                 statement.setString(7,vivienda.getTipo_Vivienda());
-                statement.setString(8,vivienda.getPlanta());
-                statement.setString(9,vivienda.isPiscina());
+                statement.setString(8,vivi.getPlanta());
+                statement.setString(9,viviend.getPiscina());
                 
                 int rowsInserted = statement.executeUpdate();
             
@@ -40,7 +41,7 @@ public class GestionVivienda {
                 }
         		}
     public static void mostrarViviendasBD() {
-            	System.out.println("Lista de viviendas");
+            	System.out.println("Lista de viviendas:");
             	System.out.println();
                    String Select = "SELECT * FROM mr_robot.vivienda";
                 	try {
@@ -103,7 +104,7 @@ public class GestionVivienda {
     			
     }
     public static void eliminarUsuario(String email) {
-String deleteQuery= "DELETE FROM usuario WHERE email = ?";
+    	String deleteQuery= "DELETE FROM usuario WHERE email = ?";
     	
     	try {
     		PreparedStatement statement = ConectorBD.conexion.prepareStatement(deleteQuery);

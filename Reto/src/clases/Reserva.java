@@ -77,13 +77,5 @@ public class Reserva {
 	public void setTotalPagado(double totalPagado) {
 		this.totalPagado = totalPagado;
 	}
-
-	//ToString
-	@Override
-	public String toString() {
-		return "Reserva [Fecha Entrada: " + fechaEntrada + ", Fecha Salida: " + fechaSalida + ", Numero de Huespedes: "
-				+ numHuespedes + ", Total Pagado: " + totalPagado + "]";
-	}
-	
 	
 }

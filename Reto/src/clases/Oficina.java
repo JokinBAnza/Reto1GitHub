@@ -45,13 +45,4 @@ public class Oficina {
 		this.ubicacion = ubicacion;
 	}
 	
-//ToString
-	@Override
-	public String toString() {
-		return "Oficina [ID: " + id + ", Telefono: " + telefono + ", Ubicación: " + ubicacion + "]";
-	}
-	
-	
-	
-	
 }

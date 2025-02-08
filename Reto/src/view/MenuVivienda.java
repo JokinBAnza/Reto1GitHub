@@ -1,6 +1,9 @@
 package view;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import clases.Piso;
+import clases.Villa;
 import clases.Vivienda;
 import repositorios.GestionReserva;
 import repositorios.GestionUsuario;
@@ -39,8 +42,10 @@ public class MenuVivienda {
 
 	            switch (opcion) {
 	                case 1:
-		                 Vivienda viv=agregarVivienda(sc);
-		                 GestionVivienda.insertarVivienda(viv);
+	                	Piso vivi=new Piso();
+	                	Villa viviend=new Villa();
+		                Vivienda viv=agregarVivienda(sc);
+		                GestionVivienda.insertarVivienda(viv,vivi,viviend);
 	                     break;
 	                case 2:
 	                	GestionVivienda.mostrarViviendasBD();
@@ -158,7 +163,6 @@ public class MenuVivienda {
 		            planta = sc.nextLine();
 		            if(planta.length()>3) {
 		            	System.out.println("Error. Inserta máximo 2 letras y un número.");
-		
 		            }
 		        	}while(planta.length()>3);
 		        } else {
@@ -166,8 +170,18 @@ public class MenuVivienda {
 		        }
 		    } while (!tipo_Vivienda.equalsIgnoreCase("Villa") && !tipo_Vivienda.equalsIgnoreCase("Piso"));
 
-		    Vivienda vivienda = new Vivienda(idOficina, ciudad, direccion, numHab, descripcion, precioDia, tipo_Vivienda, planta, piscina);
-		    return vivienda;
+		    Vivienda vivienda = new Vivienda(idOficina, ciudad, direccion, numHab, descripcion, precioDia, tipo_Vivienda);
+		    Piso vivi=new Piso(idOficina, ciudad, direccion, numHab, descripcion, precioDia, tipo_Vivienda, planta);
+		    Villa viviend=new Villa(idOficina, ciudad, direccion, numHab, descripcion, precioDia, tipo_Vivienda, piscina);
+		    if(tipo_Vivienda.equals("Piso")) {
+		    	return vivi;
+		    	
+		    }else if(tipo_Vivienda.equals("Villa")) {
+		    	return viviend;
+		    }else {
+		       	return vivienda;
+		    }
+		 
 		}
 
 	        private static Vivienda modificarVivienda(Scanner sc) {

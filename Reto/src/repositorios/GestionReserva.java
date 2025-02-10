@@ -79,7 +79,7 @@ public class GestionReserva {
             }
     }
 	public static void mostrarReservas() {//Muestra las reservas del usuario con el log in.
-	    System.out.println("Lista de reservas");
+	    System.out.println("Lista de reservas de "+GestionUsuario.nombre+":");
 	    String Select = "SELECT * FROM mr_robot.reserva WHERE dniUsuario= ?";
 
 	    try {
@@ -92,7 +92,7 @@ public class GestionReserva {
 	        } else {
 
 	            do {
-	                System.out.println("Codigo reserva: " + rs.getInt("CodReserva") + ", DNI: " + rs.getString("DniUsuario") +
+	                System.out.println("Codigo reserva: " + rs.getInt("CodReserva") +
 	                        ", CodVivienda: " + rs.getInt("CodVivienda") + ", Fecha Entrada: " + rs.getString("FechaEntrada") +
 	                        ", Fecha Salida: " + rs.getString("FechaSalida") + ", Numero de Huespedes: " + rs.getInt("NumHuespedes") +
 	                        ", Total a pagar: " + rs.getDouble("TotalPagado"));

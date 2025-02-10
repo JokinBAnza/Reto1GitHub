@@ -22,10 +22,11 @@ public class MenuVivienda {
 	            System.out.println("3.- Modificar Vivienda");
 	            System.out.println("4.- Eliminar Vivienda");
 	            System.out.println("5.- Mostrar Usuarios");
-	            System.out.println("6.- Eliminar Usuarios");
+	            System.out.println("6.- Eliminar Usuario");
 	            System.out.println("7.- Mostrar Reservas");
-	            System.out.println("8.- Volver atras");
-	            System.out.println("9.- Salir");
+	            System.out.println("8.- Eliminar Reserva");
+	            System.out.println("9.- Volver atras");
+	            System.out.println("10.- Salir");
 	            System.out.println();
 	            System.out.print("Selecciona una opción: ");
 	            
@@ -74,8 +75,14 @@ public class MenuVivienda {
 	                	GestionReserva.mostrarTodasReservas();
 	                	break;
 	                case 8:
-	                	return;
+	                	GestionReserva.mostrarTodasReservas();
+	                	System.out.println("Introduce el Codigo de Reserva de la reserva a eliminar:");
+	                	int codR=sc.nextInt();
+	                	GestionVivienda.eliminarReserva(codR);
+	                	break;
 	                case 9:
+	                	return;
+	                case 10:
 	                    System.out.println("Finalizando programa. ¡Nos vemos Administrador!");
 	                    System.exit(0);
 	                default:

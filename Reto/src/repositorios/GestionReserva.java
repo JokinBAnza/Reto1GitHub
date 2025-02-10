@@ -10,6 +10,7 @@ import clases.Reserva;
 public class GestionReserva {
 	
 	public static boolean consultarFechaBD(int opcion,Date fechaEntrada, Date fechaSalida) {
+		System.out.println("Viviendas disponibles en esas fechas:");
 	    String Select = "SELECT v.CodVivienda, v.IdOficina, v.Ciudad, v.Direccion, v.Descripcion, v.NumHab, v.Precio_Dia, v.Tipo_Vivienda, v.Planta, v.Piscina "
 	            + "FROM vivienda v "
 	            + "LEFT JOIN reserva r ON v.CodVivienda = r.CodVivienda AND "
@@ -147,31 +148,7 @@ public class GestionReserva {
 
 	    return precioDia;
 	}
-	public static void finalizarReserva(Reserva rese) {
-		String updateQuery=  "UPDATE Vivienda v " +
-			                "JOIN Reserva r ON v.CodVivienda = r.CodVivienda " +
-			                "SET v.disponible=? " +
-			                "WHERE r.dniUsuario=?";
-				
-				try {
-					PreparedStatement statement= ConectorBD.conexion.prepareStatement(updateQuery);
-					statement.setString(1, "Si");
-					statement.setString(2, GestionUsuario.getDniUsuario());
-					
-					int rowsAffected=statement.executeUpdate();
-					if (rowsAffected > 0) {
-			            System.out.println("Reserva finalizada correctamente.");
-			        } else {
-			            System.out.println("No se encontró ninguna reserva para ese usuario.");
-			        }
-					
-				}catch(SQLException e) {
-					e.printStackTrace();
-		            System.out.println("Error al hacer la consulta: " + updateQuery);
-	
-				}
-	}
-	public static boolean esViviendaDeOficina(int codVivienda, int idOficina) {
+	public static boolean esViviendaDeOficina(int codVivienda, int idOficina) {//Verifica que la vivienda seleccionada pertenezca a la oficina en la que esta el usuario.
 	    String query = "SELECT COUNT(*) FROM mr_robot.vivienda WHERE CodVivienda = ? AND IdOficina = ?";
 	    
 	    try {

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 public class GestionOficina {
 
     public static void mostrarOficinaViviendasBD(int id) {//Muestra las viviendas con la idOficina seleccionada.
+    	System.out.println("Viviendas totales:");
 
         String Select = "SELECT * FROM mr_robot.vivienda WHERE IdOficina = ?";
         try {

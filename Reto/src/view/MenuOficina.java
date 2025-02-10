@@ -2,8 +2,6 @@ package view;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
-
-import clases.Oficina;
 import repositorios.GestionOficina;
 import repositorios.GestionReserva;
 import repositorios.GestionUsuario;
@@ -70,8 +68,6 @@ public class MenuOficina {
 	            System.out.print("Selecciona una opción: ");
 
 	            int opcion = sc.nextInt();
-	            Oficina ofi= new Oficina();//--------------------------------------> Creo que no hace nada.
-	            ofi.setId(opcion);
 	            sc.nextLine();
 	            
 	            switch (opcion) {

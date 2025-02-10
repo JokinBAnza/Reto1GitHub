@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class GestionOficina {
 
-    public static void mostrarOficinaViviendasBD(int id) {
+    public static void mostrarOficinaViviendasBD(int id) {//Muestra las viviendas con la idOficina seleccionada.
 
         String Select = "SELECT * FROM mr_robot.vivienda WHERE IdOficina = ?";
         try {
@@ -40,7 +40,7 @@ public class GestionOficina {
         }
     }
 
-    public static void DatosOficina() {
+    public static void DatosOficina() {//Muestra la lista de oficinas disponibles.
         System.out.println("Lista de viviendas");
         System.out.println();
 

@@ -12,7 +12,7 @@ import clases.Vivienda;
 public class GestionVivienda {
 	
 	
-    public static void insertarVivienda(Vivienda vivienda, Piso vivi, Villa viviend) {
+    public static void insertarVivienda(Vivienda vivienda, Piso vivi, Villa viviend) {//Inserta una vivienda en la BBDD.
         
             String insert = "INSERT INTO vivienda (idOficina, ciudad, direccion, descripcion, numhab, precio_dia, Tipo_Vivienda, planta, piscina) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
@@ -40,7 +40,7 @@ public class GestionVivienda {
         			System.out.println("Error al intentar insertar la vivienda: "+insert);
                 }
         		}
-    public static void mostrarViviendasBD() {
+    public static void mostrarViviendasBD() {//Muestra todas las viviendas de la BBDD (Menu Admin).
             	System.out.println("Lista de viviendas:");
             	System.out.println();
                    String Select = "SELECT * FROM mr_robot.vivienda";
@@ -61,7 +61,7 @@ public class GestionVivienda {
         				System.out.println("Error al mostrar las viviendas: "+Select);
         			}
             }
-    public static void modificarViviendaBD(Vivienda vivi) {
+    public static void modificarViviendaBD(Vivienda vivi) {//Modifica una vivienda de la BBDD (Menu Admin).
         String updateQuery = "UPDATE Vivienda SET descripcion=?, Precio_Dia=? WHERE CodVivienda=?";
 
         try {
@@ -83,7 +83,7 @@ public class GestionVivienda {
             System.out.println("Error al hacer la consulta: " + updateQuery);
         }
     }
-    public static void eliminarVivienda(int CodV) {
+    public static void eliminarVivienda(int CodV) {//Elimina una vivienda de la BBDD (Menu Admin).
     	String deleteQuery= "DELETE FROM vivienda WHERE CodVivienda = ?";
     	
     	try {
@@ -103,7 +103,7 @@ public class GestionVivienda {
     	}
     			
     }
-    public static void eliminarUsuario(String email) {
+    public static void eliminarUsuario(String email) {//Elimina un usuario de la BBDD (Menu Admin).
     	String deleteQuery= "DELETE FROM usuario WHERE email = ?";
     	
     	try {

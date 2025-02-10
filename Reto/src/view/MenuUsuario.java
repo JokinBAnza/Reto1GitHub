@@ -12,7 +12,7 @@ import repositorios.GestionUsuario;
 public class MenuUsuario{
 	public static Scanner sc=new Scanner(System.in);
 	
-	public static void mostrarMenuUsuario(Scanner sc) {
+	public static void mostrarMenuUsuario(Scanner sc) {//Primer menu que veremos.
 		int opcion = 0;
 		while (opcion!=3) {
 			System.out.println();
@@ -64,7 +64,7 @@ public class MenuUsuario{
         }
 		}
     }
-	public static Usuario crearUsuario() {
+	public static Usuario crearUsuario() {//Para insertar un usuario en la BBDD.
 			Usuario usuar=new Usuario();
 			String dni;
 			boolean dniValido=false;

@@ -17,15 +17,15 @@ public class GestionUsuario {
 	
 	private static String dniUsuario;
 
-    public static String getDniUsuario() {
+    public static String getDniUsuario() {//Guardo el DNI del usuario logueado.
         return dniUsuario;
     }
     public static String nombre;
-    public static String getNombre() {
+    public static String getNombre() {//Guardo el nombre del usuario logueado.
     	return nombre;
     }
 	
-    public static boolean comprobarCorreo(Usuario us){
+    public static boolean comprobarCorreo(Usuario us){//Verifica al registrar un usuario si el email ya existe en la BBDD.
 
 	    String checkEmail = "SELECT COUNT(*) FROM Usuario WHERE Email = ?";
 	    try {
@@ -40,7 +40,7 @@ public class GestionUsuario {
 	    }
 	    return false;
     }
-    public static boolean comprobarDNI(Usuario u) {
+    public static boolean comprobarDNI(Usuario u) {//Verifica al registrar un usuario si el DNI ya existe en la BBDD.
     
 	    String checkDni = "SELECT COUNT(*) FROM Usuario WHERE DNI = ?";
 	    
@@ -61,7 +61,7 @@ public class GestionUsuario {
     }
     
     
-	public static void insertarUsuario(Usuario usuario) {
+	public static void insertarUsuario(Usuario usuario) {//Inserta un nuevo usuario en la BBDD.
 		
 	    try {  
 	       
@@ -84,9 +84,9 @@ public class GestionUsuario {
 			
 		}
 	}
-	public static void loginUsuario(String email, String Contraseña) {
+	public static void loginUsuario(String email, String Contraseña) {//Para hacer login.
 	    
-		   String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+		   String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";//Verifica que el formato del correo sea correcto.
 		    Pattern pattern = Pattern.compile(regex);
 		    Matcher matcher = pattern.matcher(email);
 
@@ -124,7 +124,7 @@ public class GestionUsuario {
 	        System.out.println("Error al realizar el login.");
 	    }
 	}
-	public static void mostrarUsuarios() {
+	public static void mostrarUsuarios() {//Muestra todos los usuarios (Menu Admin).
 		String Select= "SELECT * FROM usuario";
 		try {
 			PreparedStatement statement=ConectorBD.conexion.prepareStatement(Select);

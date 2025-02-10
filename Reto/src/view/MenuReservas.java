@@ -74,10 +74,10 @@ public class MenuReservas {
 	    return new java.sql.Date(fechaUtil.getTime());
 	}
 
-	public static Reserva consultarFechas(Scanner sc) {
+	public static Reserva consultarFechas(Scanner sc) {//Comprobamos que las fechas sean viables y factibles.
 	    Date fechaEd = null;
 	    Date fechaSd = null;
-	    LocalDate fechaActual = LocalDate.now();
+	    LocalDate fechaActual = LocalDate.now();//Para saber la fecha actual.
 
 	    while (fechaEd == null) {
 	        try {
@@ -123,7 +123,7 @@ public class MenuReservas {
 	    return reserva;
 	}
 
-	public static Reserva agregarReserva(Scanner sc, int idOficina, Date fechaEd, Date fechaSd) {
+	public static Reserva agregarReserva(Scanner sc, int idOficina, Date fechaEd, Date fechaSd) {//Creamos la reserva y verificamos antes de insertarla en la BBDD.
 	    System.out.println("\n--- Añadir Reserva ---");
 	    System.out.println("Código de la vivienda:");
 	    int codVivienda = sc.nextInt();

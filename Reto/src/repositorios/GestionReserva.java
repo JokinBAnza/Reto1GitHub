@@ -52,7 +52,7 @@ public class GestionReserva {
 	    return hayViviendasDisponibles;
 	}
 		
-	public static void insertarReserva(Reserva reserva) {
+	public static void insertarReserva(Reserva reserva) {//Inserta la reserva en la BBDD.
         
         String insert = "INSERT INTO reserva (DniUsuario, CodVivienda, FechaEntrada, FechaSalida, NumHuespedes, TotalPagado) VALUES (?, ?, ?, ?, ?, ?)";
         
@@ -77,7 +77,7 @@ public class GestionReserva {
     			System.out.println("Error al hacer la reserva "+insert);
             }
     }
-	public static void mostrarReservas() {
+	public static void mostrarReservas() {//Muestra las reservas del usuario con el log in.
 	    System.out.println("Lista de reservas");
 	    String Select = "SELECT * FROM mr_robot.reserva WHERE dniUsuario= ?";
 
@@ -102,7 +102,7 @@ public class GestionReserva {
 	        System.out.println("Error al hacer la consulta: " + Select);
 	    }
 	}
-	public static void mostrarTodasReservas() {
+	public static void mostrarTodasReservas() {//Muestra todas las reservas(Menu Admin).
 	    System.out.println("Lista de reservas");
 	    String Select = "SELECT * FROM mr_robot.reserva";
 

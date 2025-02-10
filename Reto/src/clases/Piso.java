@@ -1,6 +1,6 @@
 package clases;
 
-public class Piso extends Vivienda {
+public class Piso extends Vivienda {//Subclase de Vivienda
 	
 	//Atributos
 	private String planta;

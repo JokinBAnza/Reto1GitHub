@@ -11,7 +11,7 @@ import repositorios.GestionVivienda;
 
 public class MenuVivienda {
 	
-	 public static void mostrarMenuVivienda(Scanner sc) {
+	 public static void mostrarMenuVivienda(Scanner sc) {//Menu Admin.
 	        
 		 boolean salir = false;
 	        

@@ -31,9 +31,4 @@ public class ConectorBD {
     public static void cerrarConexion() throws SQLException {
     	conexion.close();
     }
-    
-    public static void getConexion() {
-    	
-    }
-
 }

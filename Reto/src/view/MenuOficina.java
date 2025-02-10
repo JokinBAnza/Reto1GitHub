@@ -6,6 +6,7 @@ import java.util.Scanner;
 import clases.Oficina;
 import repositorios.GestionOficina;
 import repositorios.GestionReserva;
+import repositorios.GestionUsuario;
 
 public class MenuOficina {
 	 
@@ -17,7 +18,7 @@ public class MenuOficina {
 	            System.out.println("\n--- Menú Oficina ---");
 	            System.out.println("1.- Buscar vivienda por Oficina");
 	            System.out.println("2.- Mostrar oficinas disponibles");
-	            System.out.println("3.- Mostrar reservas");
+	            System.out.println("3.- Mostrar reservas de "+GestionUsuario.nombre);
 	            System.out.println("4.- Salir");
 	            System.out.println();
 	            System.out.print("Selecciona una opción: ");
@@ -69,7 +70,7 @@ public class MenuOficina {
 	            System.out.print("Selecciona una opción: ");
 
 	            int opcion = sc.nextInt();
-	            Oficina ofi= new Oficina();
+	            Oficina ofi= new Oficina();//--------------------------------------> Creo que no hace nada.
 	            ofi.setId(opcion);
 	            sc.nextLine();
 	            

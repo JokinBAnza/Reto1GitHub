@@ -1,6 +1,6 @@
 package clases;
 
-public class Villa extends Vivienda {
+public class Villa extends Vivienda {//Subclase de Vivienda
 	
 	//Atributos
 	private String piscina;

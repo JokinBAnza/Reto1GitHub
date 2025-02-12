@@ -95,7 +95,7 @@ public class GestionReserva {
 	                System.out.println("Codigo reserva: " + rs.getInt("CodReserva") +
 	                        ", CodVivienda: " + rs.getInt("CodVivienda") + ", Fecha Entrada: " + rs.getString("FechaEntrada") +
 	                        ", Fecha Salida: " + rs.getString("FechaSalida") + ", Numero de Huespedes: " + rs.getInt("NumHuespedes") +
-	                        ", Total a pagar: " + rs.getDouble("TotalPagado"));
+	                        ", Total a pagar: " + rs.getDouble("TotalPagado")+" €");
 	            } while (rs.next());
 	        }
 	    } catch (SQLException e) {
@@ -120,7 +120,7 @@ public class GestionReserva {
 	                System.out.println("Codigo reserva: " + rs.getInt("CodReserva") + ", DNI: " + rs.getString("DniUsuario") +
 	                        ", CodVivienda: " + rs.getInt("CodVivienda") + ", Fecha Entrada: " + rs.getString("FechaEntrada") +
 	                        ", Fecha Salida: " + rs.getString("FechaSalida") + ", Numero de Huespedes: " + rs.getInt("NumHuespedes") +
-	                        ", Total a pagar: " + rs.getDouble("TotalPagado"));
+	                        ", Total a pagar: " + rs.getDouble("TotalPagado")+" €");
 	            } while (rs.next());
 	        }
 	    } catch (SQLException e) {

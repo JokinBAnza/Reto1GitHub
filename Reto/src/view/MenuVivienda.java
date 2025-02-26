@@ -12,7 +12,7 @@ import repositorios.GestionVivienda;
 public class MenuVivienda {
 	
 	 public static void mostrarMenuVivienda(Scanner sc) {
-	        
+	        GestionVivienda viva = new GestionVivienda ();
 		 boolean salir = false;
 	        
 	        while (!salir) {
@@ -48,7 +48,8 @@ public class MenuVivienda {
 		                 GestionVivienda.insertarVivienda(viv, piso, villa);
 	                     break;
 	                case 2:
-	                	GestionVivienda.mostrarViviendasBD();
+	                	
+	                	viva.mostrar();
 	                    break;
 	                case 3:
 	                	System.out.println("Introduce el codigo de la vivienda a modificar:");
@@ -58,7 +59,7 @@ public class MenuVivienda {
 	                	GestionVivienda.modificarViviendaBD(vivienda);
 	                   break;
 	                case 4:
-	                  	GestionVivienda.mostrarViviendasBD();
+	                  	viva.mostrar();
 	                  	System.out.println();
 	                	System.out.println("¿Que vivienda quieres borrar? Introduce su CodVivienda:");
 	                	int CodV=sc.nextInt();

@@ -10,7 +10,7 @@ import clases.Villa;
 import clases.Vivienda;
 
 
-public class GestionVivienda {
+public class GestionVivienda implements InterfaceRepositorio {
 	
 	
     public static void insertarVivienda(Vivienda vivienda, Piso piso, Villa villa) {
@@ -41,27 +41,7 @@ public class GestionVivienda {
         			System.out.println("Error al intentar insertar la vivienda: "+insert);
                 }
         		}
-    public static void mostrarViviendasBD() {
-            	System.out.println("Lista de viviendas");
-            	System.out.println();
-                   String Select = "SELECT * FROM mr_robot.vivienda";
-                	try {
-        				PreparedStatement statement=ConectorBD.conexion.prepareStatement(Select);
-        				ResultSet rs=statement.executeQuery(Select);
-        				
-        				while(rs.next()) {
-        					System.out.println("Codigo Vivienda: "+rs.getInt("CodVivienda")+", IdOficina: "+rs.getInt("IdOficina")
-        					+", Ciudad: "+rs.getString("Ciudad")+", Direccion: "+rs.getString("Direccion")
-        							+", Numero Habitaciones: "+rs.getInt("NumHab")+", Descripción: "+rs.getString("descripcion")
-        							+", Precio/dia: "+rs.getDouble("Precio_Dia")+", Tipo Vivienda: "+rs.getString("Tipo_Vivienda")
-        							+", Planta: "+rs.getString("Planta")+", Piscina: "+rs.getString("Piscina"));
-        				}			
-        			} catch (SQLException e) {
-        				
-        				e.printStackTrace();
-        				System.out.println("Error al mostrar las viviendas: "+Select);
-        			}
-            }
+   
     
     public static void modificarViviendaBD(Vivienda vivi) {
         String updateQuery = "UPDATE Vivienda SET descripcion=?, Precio_Dia=? WHERE CodVivienda=?";
@@ -160,6 +140,30 @@ String deleteQuery= "DELETE FROM usuario WHERE email = ?";
 
         return vivienda;
     }
+	@Override
+	public void mostrar() {
+		System.out.println("Lista de viviendas");
+    	System.out.println();
+           String Select = "SELECT * FROM mr_robot.vivienda";
+        	try {
+				PreparedStatement statement=ConectorBD.conexion.prepareStatement(Select);
+				ResultSet rs=statement.executeQuery(Select);
+				
+				while(rs.next()) {
+					System.out.println("Codigo Vivienda: "+rs.getInt("CodVivienda")+", IdOficina: "+rs.getInt("IdOficina")
+					+", Ciudad: "+rs.getString("Ciudad")+", Direccion: "+rs.getString("Direccion")
+							+", Numero Habitaciones: "+rs.getInt("NumHab")+", Descripción: "+rs.getString("descripcion")
+							+", Precio/dia: "+rs.getDouble("Precio_Dia")+", Tipo Vivienda: "+rs.getString("Tipo_Vivienda")
+							+", Planta: "+rs.getString("Planta")+", Piscina: "+rs.getString("Piscina"));
+				}			
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+				System.out.println("Error al mostrar las viviendas: "+Select);
+			}
+    
+		
+	}
 
                     
 }

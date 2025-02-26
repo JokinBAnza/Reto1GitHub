@@ -4,7 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class GestionOficina {
+import clases.Oficina;
+
+public class GestionOficina implements InterfazRepositorio<Oficina>{
 
     public static void mostrarOficinaViviendasBD(int id) {
 
@@ -40,8 +42,27 @@ public class GestionOficina {
         }
     }
 
-    public static void DatosOficina() {
-        System.out.println("Nuestras oficinas");
+	@Override
+	public void insertar(Oficina t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void modificar(Oficina t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mostrar() {
+		System.out.println("Nuestras oficinas");
         System.out.println();
 
         String Select = "SELECT * FROM mr_robot.oficina";
@@ -58,6 +79,7 @@ public class GestionOficina {
             e.printStackTrace();
             System.out.println("Error al hacer la consulta: " + Select);
         }
-    }
+		
+	}
 }
 

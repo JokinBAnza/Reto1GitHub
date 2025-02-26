@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import clases.Reserva;
 
-public class GestionReserva {
+public class GestionReserva implements InterfazRepositorio<Reserva>{
 	
 	public static boolean consultarFechaBD(int opcion,Date fechaEntrada, Date fechaSalida) {
 	    String Select = "SELECT v.CodVivienda, v.IdOficina, v.Ciudad, v.Direccion, v.Descripcion, v.NumHab, v.Precio_Dia, v.Tipo_Vivienda, v.Planta, v.Piscina "
@@ -52,31 +52,6 @@ public class GestionReserva {
 	    return hayViviendasDisponibles;
 	}
 		
-	public static void insertarReserva(Reserva reserva) {
-        
-        String insert = "INSERT INTO reserva (DniUsuario, CodVivienda, FechaEntrada, FechaSalida, NumHuespedes, TotalPagado) VALUES (?, ?, ?, ?, ?, ?)";
-        
-        try ( 
-             PreparedStatement statement = ConectorBD.conexion.prepareStatement(insert)) {
-           
-        	statement.setString(1, reserva.getDniUsuario());
-        	statement.setInt(2, reserva.getCodVivienda());
-            statement.setDate(3, reserva.getFechaEntrada());
-            statement.setDate(4, reserva.getFechaSalida());
-            statement.setInt(5, reserva.getNumHuespedes());
-            statement.setDouble(6, reserva.getTotalPagado());
-            
-            int rowsInserted = statement.executeUpdate();
-            
-            if (rowsInserted > 0) {
-                System.out.println("¡Reserva realizada con éxito!");
-            }
-        	}
-            catch (SQLException e) {
-    			e.printStackTrace();
-    			System.out.println("Error al hacer la reserva "+insert);
-            }
-    }
 	public static void mostrarReservas() {
 	    System.out.println("Lista de reservas");
 	    String Select = "SELECT * FROM mr_robot.reserva WHERE dniUsuario= ?";
@@ -84,31 +59,6 @@ public class GestionReserva {
 	    try {
 	        PreparedStatement statement = ConectorBD.conexion.prepareStatement(Select);
 	        statement.setString(1, GestionUsuario.getDniUsuario());
-	        ResultSet rs = statement.executeQuery();
-
-	        if (!rs.next()) {
-	            System.out.println("¡No existe ninguna reserva!");
-	        } else {
-
-	            do {
-	                System.out.println("Codigo reserva: " + rs.getInt("CodReserva") + ", DNI: " + rs.getString("DniUsuario") +
-	                        ", CodVivienda: " + rs.getInt("CodVivienda") + ", Fecha Entrada: " + rs.getString("FechaEntrada") +
-	                        ", Fecha Salida: " + rs.getString("FechaSalida") + ", Numero de Huespedes: " + rs.getInt("NumHuespedes") +
-	                        ", Total a pagar: " + rs.getDouble("TotalPagado"));
-	            } while (rs.next());
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        System.out.println("Error al hacer la consulta: " + Select);
-	    }
-	}
-	public static void mostrarTodasReservas() {
-	    System.out.println("Lista de reservas");
-	    String Select = "SELECT * FROM mr_robot.reserva";
-
-	    try {
-	        PreparedStatement statement = ConectorBD.conexion.prepareStatement(Select);
-	        
 	        ResultSet rs = statement.executeQuery();
 
 	        if (!rs.next()) {
@@ -147,30 +97,7 @@ public class GestionReserva {
 
 	    return precioDia;
 	}
-	public static void finalizarReserva(Reserva rese) {
-		String updateQuery=  "UPDATE Vivienda v " +
-			                "JOIN Reserva r ON v.CodVivienda = r.CodVivienda " +
-			                "SET v.disponible=? " +
-			                "WHERE r.dniUsuario=?";
-				
-				try {
-					PreparedStatement statement= ConectorBD.conexion.prepareStatement(updateQuery);
-					statement.setString(1, "Si");
-					statement.setString(2, GestionUsuario.getDniUsuario());
-					
-					int rowsAffected=statement.executeUpdate();
-					if (rowsAffected > 0) {
-			            System.out.println("Reserva finalizada correctamente.");
-			        } else {
-			            System.out.println("No se encontró ninguna reserva para ese usuario.");
-			        }
-					
-				}catch(SQLException e) {
-					e.printStackTrace();
-		            System.out.println("Error al hacer la consulta: " + updateQuery);
 	
-				}
-	}
 	public static boolean esViviendaDeOficina(int codVivienda, int idOficina) {
 	    String query = "SELECT COUNT(*) FROM mr_robot.vivienda WHERE CodVivienda = ? AND IdOficina = ?";
 	    
@@ -191,6 +118,73 @@ public class GestionReserva {
 	    }
 	    
 	    return false;
+	}
+
+	@Override
+	public void insertar(Reserva reserva) {
+		String insert = "INSERT INTO reserva (DniUsuario, CodVivienda, FechaEntrada, FechaSalida, NumHuespedes, TotalPagado) VALUES (?, ?, ?, ?, ?, ?)";
+        
+        try ( 
+             PreparedStatement statement = ConectorBD.conexion.prepareStatement(insert)) {
+           
+        	statement.setString(1, reserva.getDniUsuario());
+        	statement.setInt(2, reserva.getCodVivienda());
+            statement.setDate(3, reserva.getFechaEntrada());
+            statement.setDate(4, reserva.getFechaSalida());
+            statement.setInt(5, reserva.getNumHuespedes());
+            statement.setDouble(6, reserva.getTotalPagado());
+            
+            int rowsInserted = statement.executeUpdate();
+            
+            if (rowsInserted > 0) {
+                System.out.println("¡Reserva realizada con éxito!");
+            }
+        	}
+            catch (SQLException e) {
+    			e.printStackTrace();
+    			System.out.println("Error al hacer la reserva "+insert);
+            }
+		
+	}
+
+	@Override
+	public void modificar(Reserva t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mostrar() {
+		System.out.println("Lista de reservas");
+	    String Select = "SELECT * FROM mr_robot.reserva";
+
+	    try {
+	        PreparedStatement statement = ConectorBD.conexion.prepareStatement(Select);
+	        
+	        ResultSet rs = statement.executeQuery();
+
+	        if (!rs.next()) {
+	            System.out.println("¡No existe ninguna reserva!");
+	        } else {
+
+	            do {
+	                System.out.println("Codigo reserva: " + rs.getInt("CodReserva") + ", DNI: " + rs.getString("DniUsuario") +
+	                        ", CodVivienda: " + rs.getInt("CodVivienda") + ", Fecha Entrada: " + rs.getString("FechaEntrada") +
+	                        ", Fecha Salida: " + rs.getString("FechaSalida") + ", Numero de Huespedes: " + rs.getInt("NumHuespedes") +
+	                        ", Total a pagar: " + rs.getDouble("TotalPagado"));
+	            } while (rs.next());
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        System.out.println("Error al hacer la consulta: " + Select);
+	    }
+		
 	}
 
 

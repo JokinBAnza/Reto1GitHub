@@ -11,7 +11,7 @@ import clases.Usuario;
 import view.MenuOficina;
 import view.MenuVivienda;
 
-public class GestionUsuario {
+public class GestionUsuario implements InterfazRepositorio<Usuario> {
 	
 	private final static Scanner sc= new Scanner (System.in);
 	
@@ -63,26 +63,7 @@ public class GestionUsuario {
     
 	public static void insertarUsuario(Usuario usuario) {
 		
-	    try {  
-	       
-		String insert="INSERT INTO Usuario (DNI, Nombre, Apellido, NomUs, Email, Contraseña, Rol) VALUES (?, ?, ?, ?, ?, ?, ?)";
-			PreparedStatement statement=ConectorBD.conexion.prepareStatement(insert);
-			statement.setString(1, usuario.getDni());
-			statement.setString(2, usuario.getNombre());
-			statement.setString(3, usuario.getApellido());
-			statement.setString(4, usuario.getNomUs());
-			statement.setString(5, usuario.getEmail());
-			statement.setString(6, usuario.getContraseña());
-			statement.setString(7, usuario.getRol());
-				
-			statement.executeUpdate();
-				
-		} catch (SQLException e) {
-				
-			e.printStackTrace();
-			System.out.println("Error al hacer la consulta.");	
-			
-		}
+	   
 	}
 	public static void loginUsuario(String email, String Contraseña) {
 	    
@@ -124,7 +105,46 @@ public class GestionUsuario {
 	        System.out.println("Error al realizar el login.");
 	    }
 	}
-	public static void mostrarUsuarios() {
+
+	@Override
+	public void insertar(Usuario usuario) {
+		 try {  
+		       
+				String insert="INSERT INTO Usuario (DNI, Nombre, Apellido, NomUs, Email, Contraseña, Rol) VALUES (?, ?, ?, ?, ?, ?, ?)";
+					PreparedStatement statement=ConectorBD.conexion.prepareStatement(insert);
+					statement.setString(1, usuario.getDni());
+					statement.setString(2, usuario.getNombre());
+					statement.setString(3, usuario.getApellido());
+					statement.setString(4, usuario.getNomUs());
+					statement.setString(5, usuario.getEmail());
+					statement.setString(6, usuario.getContraseña());
+					statement.setString(7, usuario.getRol());
+						
+					statement.executeUpdate();
+						
+				} catch (SQLException e) {
+						
+					e.printStackTrace();
+					System.out.println("Error al hacer la consulta.");	
+					
+				}
+		
+	}
+
+	@Override
+	public void modificar(Usuario t) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mostrar() {
 		String Select= "SELECT * FROM usuario";
 		try {
 			PreparedStatement statement=ConectorBD.conexion.prepareStatement(Select);

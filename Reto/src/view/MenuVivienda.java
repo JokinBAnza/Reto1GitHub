@@ -12,7 +12,9 @@ import repositorios.GestionVivienda;
 public class MenuVivienda {
 	
 	 public static void mostrarMenuVivienda(Scanner sc) {
-	        GestionVivienda viva = new GestionVivienda ();
+	     GestionVivienda viva = new GestionVivienda ();
+	     GestionReserva res=new GestionReserva();
+	     
 		 boolean salir = false;
 	        
 	        while (!salir) {
@@ -56,7 +58,7 @@ public class MenuVivienda {
 	                	int codigo=sc.nextInt();
 	                	Vivienda vivienda=GestionVivienda.obtenerViviendaPorCodigo(codigo);
 	                	modificarVivienda(codigo, sc);
-	                	GestionVivienda.modificarViviendaBD(vivienda);
+	                	viva.modificar(vivienda);
 	                   break;
 	                case 4:
 	                  	viva.mostrar();
@@ -66,16 +68,16 @@ public class MenuVivienda {
 	                	GestionVivienda.eliminarVivienda(CodV);
 	                	break;
 	                case 5:
-	                	GestionUsuario.mostrarUsuarios();
+	                	viva.mostrar();
 	                	break;
 	                case 6:
-	                	GestionUsuario.mostrarUsuarios();
+	                	viva.mostrar();
 	                	System.out.println("Introduce el email del usuario que quieres eliminar:");
 	                	String email=sc.nextLine();
 	                	GestionVivienda.eliminarUsuario(email);
 	                	break;
 	                case 7:
-	                	GestionReserva.mostrarTodasReservas();
+	                	res.mostrar();
 	                	break;
 	                case 8:
 	                	return;
@@ -177,6 +179,7 @@ public class MenuVivienda {
 
 
 	 private static void modificarVivienda(int codigo, Scanner sc) {
+		 GestionVivienda v=new GestionVivienda();
 		    // Buscar la vivienda en la BD según el código
 		    Vivienda vivi = GestionVivienda.obtenerViviendaPorCodigo(codigo);
 
@@ -205,7 +208,7 @@ public class MenuVivienda {
 		    }
 
 		    // Guardar los cambios en la BD
-		    GestionVivienda.modificarViviendaBD(vivi);
+		    v.modificar(vivi);
 		}
 
 	       

@@ -10,7 +10,7 @@ import clases.Villa;
 import clases.Vivienda;
 
 
-public class GestionVivienda implements InterfaceRepositorio {
+public class GestionVivienda implements InterfazRepositorio<Vivienda> {
 	
 	
     public static void insertarVivienda(Vivienda vivienda, Piso piso, Villa villa) {
@@ -40,31 +40,8 @@ public class GestionVivienda implements InterfaceRepositorio {
         			e.printStackTrace();
         			System.out.println("Error al intentar insertar la vivienda: "+insert);
                 }
-        		}
-   
-    
-    public static void modificarViviendaBD(Vivienda vivi) {
-        String updateQuery = "UPDATE Vivienda SET descripcion=?, Precio_Dia=? WHERE CodVivienda=?";
-
-        try {
-            PreparedStatement statement = ConectorBD.conexion.prepareStatement(updateQuery);
-
-            statement.setString(1, vivi.getDescripcion()); 
-            statement.setDouble(2, vivi.getPrecioDia()); 
-            statement.setInt(3, vivi.getCodViv());  
-
-            int filasAfectadas = statement.executeUpdate();
-
-            if (filasAfectadas > 0) {
-                System.out.println("Vivienda actualizada exitosamente.");
-            } else {
-                System.out.println("Error. No se encontró ninguna vivienda con el código proporcionado.");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Error al hacer la consulta: " + updateQuery);
-        }
     }
+    
     public static void eliminarVivienda(int CodV) {
     	String deleteQuery= "DELETE FROM vivienda WHERE CodVivienda = ?";
     	
@@ -85,8 +62,9 @@ public class GestionVivienda implements InterfaceRepositorio {
     	}
     			
     }
+    
     public static void eliminarUsuario(String email) {
-String deleteQuery= "DELETE FROM usuario WHERE email = ?";
+    	String deleteQuery= "DELETE FROM usuario WHERE email = ?";
     	
     	try {
     		PreparedStatement statement = ConectorBD.conexion.prepareStatement(deleteQuery);
@@ -105,6 +83,7 @@ String deleteQuery= "DELETE FROM usuario WHERE email = ?";
     	}
     			
     }
+    
     public static Vivienda obtenerViviendaPorCodigo(int codigo) {
         Vivienda vivienda = null;
         
@@ -140,6 +119,7 @@ String deleteQuery= "DELETE FROM usuario WHERE email = ?";
 
         return vivienda;
     }
+    
 	@Override
 	public void mostrar() {
 		System.out.println("Lista de viviendas");
@@ -165,6 +145,43 @@ String deleteQuery= "DELETE FROM usuario WHERE email = ?";
 		
 	}
 
+	@Override
+	public void modificar(Vivienda vivi) {
+		String updateQuery = "UPDATE Vivienda SET descripcion=?, Precio_Dia=? WHERE CodVivienda=?";
+
+        try {
+            PreparedStatement statement = ConectorBD.conexion.prepareStatement(updateQuery);
+
+            statement.setString(1, vivi.getDescripcion()); 
+            statement.setDouble(2, vivi.getPrecioDia()); 
+            statement.setInt(3, vivi.getCodViv());  
+
+            int filasAfectadas = statement.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                System.out.println("Vivienda actualizada exitosamente.");
+            } else {
+                System.out.println("Error. No se encontró ninguna vivienda con el código proporcionado.");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Error al hacer la consulta: " + updateQuery);
+        }
+		
+	}
+
+	
+	@Override
+	public void eliminar() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void insertar(Vivienda t) {
+		// TODO Auto-generated method stub
+		
+	}
                     
 }
 

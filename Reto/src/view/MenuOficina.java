@@ -10,7 +10,7 @@ import repositorios.GestionReserva;
 public class MenuOficina {
 	 
 	public static void menuOficina(Scanner sc) {
-	        
+	        GestionOficina oficina=new GestionOficina();
 		boolean salir = false;
 
 	        while (!salir) {
@@ -37,7 +37,7 @@ public class MenuOficina {
 	                	mostrarViviendasOficina(sc);
 	                    break;
 	                case 2:
-	                	GestionOficina.DatosOficina();
+	                	oficina.mostrar();
 	                    break;
 	                case 3:
 	                	GestionReserva.mostrarReservas();

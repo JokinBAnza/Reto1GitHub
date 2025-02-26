@@ -14,6 +14,7 @@ import repositorios.GestionUsuario;
 public class MenuReservas {
 	
 	public static void mostrarMenuReservas(Scanner sc, int idOficina) {
+		GestionReserva reservas=new GestionReserva();
 	    boolean salir = false;
 
 	    while (!salir) {
@@ -50,7 +51,7 @@ public class MenuReservas {
 	            		System.out.println("Cambia de oficina o selecciona una vivienda asociada a esta oficina.");
 	            		break;
 	            	}
-	            	GestionReserva.insertarReserva(res);
+	            	reservas.insertar(res);
 	            	GestionReserva.mostrarReservas();
 	            	return;
 			case 2:

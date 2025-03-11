@@ -66,11 +66,17 @@ public class MenuReservas {
 
 	        }
 	    }
-	private static Date convertirFecha(String fechaString) throws ParseException {
+	private static Date convertirFecha(String fechaString) {
 	    SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy/MM/dd");
 	    formatoEntrada.setLenient(false);
 
-	    java.util.Date fechaUtil = formatoEntrada.parse(fechaString);
+	    java.util.Date fechaUtil = null;
+		try {
+			fechaUtil = formatoEntrada.parse(fechaString);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	    return new java.sql.Date(fechaUtil.getTime());
 	}
 

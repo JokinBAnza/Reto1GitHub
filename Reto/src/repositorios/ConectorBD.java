@@ -25,12 +25,20 @@ public class ConectorBD {
         }
         }catch(Exception e){
             System.out.println("Error en el driver");
+        }finally {
+        	
         }
     }
     
-    public static void cerrarConexion() throws SQLException {
-    	conexion.close();
+    public static void cerrarConexion() {
+        try {
+                conexion.close();
+           
+        } catch (SQLException e) {
+            System.err.println("Error al cerrar la conexión: " + e.getMessage());
+        }
     }
+
     
     public static void getConexion() {
     	
